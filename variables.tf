@@ -48,3 +48,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "subscription_id" {
+  description = "Azure subscription ID"
+  type        = string
+  default     = "0000000-0000-00000-000000"
+}
