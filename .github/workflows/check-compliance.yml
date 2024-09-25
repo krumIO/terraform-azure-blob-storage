@@ -1,0 +1,51 @@
+name: Release Privateer and Run Help
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Privateer repository
+      uses: actions/checkout@v2
+      with:
+        repository: privateerproj/privateer
+        path: privateer
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.x
+
+    - name: Install dependencies
+      run: |
+        cd privateer
+        go mod download
+
+    - name: Run make release
+      run: |
+        cd privateer
+        make release
+
+    - name: Run privateer help command
+      run: |
+        cd privateer/
+        # Assuming the binary is named 'privateer'. Adjust if it's named differently.
+        ./privateer help
+      
+    - name: Archive release artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-artifacts
+        path: privateer/release/
+
+    - name: Archive help output
+      uses: actions/upload-artifact@v2
+      with:
+        name: help-output
+        path: privateer/release/help-output.txt
