@@ -43,8 +43,7 @@ jobs:
         ./privateer help
       
     - name: 'Tar files'
-      run: tar -cvf test_harness.tar privateer
-      working-directory: privateer
+      run: tar -cvf test_harness.tar privateer/privateer
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
@@ -83,8 +82,7 @@ jobs:
         ls
 
     - name: 'Tar files'
-      run: tar -cvf azure_blob.tar ABS
-      working-directory: raid-azure-blob-storage
+      run: tar -cvf azure_blob.tar raid-azure-blob-storage/ABS
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
@@ -177,5 +175,5 @@ jobs:
           ls -al
       - name: RUN sally command
         run: |
-          ./privateer sally ./ABS -c config.yml
+          ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
                     
