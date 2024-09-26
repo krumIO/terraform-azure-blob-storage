@@ -43,7 +43,7 @@ jobs:
         ./privateer help
       
     - name: 'Tar files'
-      run: tar -cvf test_harness.tar privateer/
+      run: tar -cvf test_harness.tar privateer/privateer
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
@@ -82,7 +82,7 @@ jobs:
         ls
 
     - name: 'Tar files'
-      run: tar -cvf azure_blob.tar aid-azure-blob-storage/
+      run: tar -cvf azure_blob.tar raid-azure-blob-storage/ABS
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
