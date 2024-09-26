@@ -166,32 +166,19 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: release-artifacts
-          path: test_harness.tar
-      - uses: actions/download-artifact@v3
-        with:
-          name: release-artifacts
-          path: ABS.tar
+          path: artifacts
       - name: RUN ls
         run: |
           ls -al 
-      - name: cd into test_harness directory
-        run: |
-          cd test_harness.tar
-          ls -al
-      - name: cd into ABS directory
-        run: |
-          cd ABS.tar
-          ls -al
       - name: Extract test harness
-        run: tar -xf test_harness.tar
-      - name: Extract ABS
-        run: tar -xf ABS.tar
-      - name: RUN ls
         run: |
-          ls -al 
+          cd artifacts
+          tar -xf test_harness.tar
+          tar -xf ABS.tar
+          ls -al
 
-
-      # - name: RUN sally command
-      #   run: |
-      #     ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
+      - name: RUN sally command
+        run: |
+          cd artifacts
+          ./privateer sally ./ABS -c ../config.yml
                     
