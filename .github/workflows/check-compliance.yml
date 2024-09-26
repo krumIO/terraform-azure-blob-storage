@@ -43,7 +43,7 @@ jobs:
         ./privateer help
       
     - name: 'Tar files'
-      run: tar -cvf test_harness.tar privateer
+      run: tar -cvf test_harness.tar privateer/
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
@@ -82,13 +82,13 @@ jobs:
         ls
 
     - name: 'Tar files'
-      run: tar -cvf ABS.tar raid-azure-blob-storage
+      run: tar -cvf ABS.tar raid-azure-blob-storage/
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
       with:
         name: release-artifacts
-        path: "raid-azure-blob-storage/ABS.tar"
+        path: ABS.tar
 
   terraform:
     if: github.repository == 'octo-org/octo-repo-prod'
