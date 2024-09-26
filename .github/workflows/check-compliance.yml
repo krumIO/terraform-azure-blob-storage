@@ -175,10 +175,13 @@ jobs:
           cd artifacts
           tar -xf test_harness.tar
           tar -xf ABS.tar
+          cp ../config.yml ./
+          cat config.yml
           ls -al
 
       - name: RUN sally command
         run: |
           cd artifacts
-          ./privateer sally ABS -c ../config.yml -b ./
+          ls -al
+          ./privateer sally ABS -c config.yml -b ./
                     
