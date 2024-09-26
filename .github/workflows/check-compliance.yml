@@ -162,3 +162,10 @@ jobs:
       - name: RUN ls
         run: |
           ls
+          cd privateer && ls && cd ..
+          cd raid-azure-blob-storage && ls && cd ..
+
+      - name: RUN sally command
+        run: |
+          ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
+                    
