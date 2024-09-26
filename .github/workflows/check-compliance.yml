@@ -11,49 +11,84 @@ permissions:
   contents: read
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout Privateer repository
-  #     uses: actions/checkout@v3
-  #     with:
-  #       repository: privateerproj/privateer
-  #       path: privateer
+  build-privateer:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Privateer repository
+      uses: actions/checkout@v3
+      with:
+        repository: privateerproj/privateer
+        path: privateer
 
-  #   - name: Set up Go
-  #     uses: actions/setup-go@v3
-  #     with:
-  #       go-version: 1.22
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.22
 
-  #   - name: Install dependencies
-  #     run: |
-  #       cd privateer
-  #       go mod download
+    - name: Install dependencies
+      run: |
+        cd privateer
+        go mod download
 
-  #   - name: Run make release
-  #     run: |
-  #       cd privateer
-  #       make release
+    - name: Run make release
+      run: |
+        cd privateer
+        make release
 
-  #   - name: Run privateer help command
-  #     run: |
-  #       cd privateer/
-  #       # Assuming the binary is named 'privateer'. Adjust if it's named differently.
-  #       ./privateer help
+    - name: Run privateer help command
+      run: |
+        cd privateer/
+        # Assuming the binary is named 'privateer'. Adjust if it's named differently.
+        ./privateer help
       
-  #   - name: Archive release artifacts
-  #     uses: actions/upload-artifact@v3
-  #     with:
-  #       name: release-artifacts
-  #       path: privateer/release/
+    - name: Archive release artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-artifacts
+        path: privateer/release/
 
-  #   - name: Archive help output
-  #     uses: actions/upload-artifact@v3
-  #     with:
-  #       name: help-output
-  #       path: privateer/release/help-output.txt
+  build-gcs-object-storage:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout GCS Object Storage repository
+      uses: actions/checkout@v3
+      with:
+        repository: eddie-knight/raid-azure-blob-storage
+        path: raid-azure-blob-storage
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.22
+
+    - name: RUN ls
+      run: |
+        ls
+
+
+    - name: Install dependencies
+      run: |
+        cd raid-azure-blob-storage
+        go mod download
+
+    - name: Run make release
+      run: |
+        cd raid-azure-blob-storage
+        make release
+
+    - name: Archive release artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-artifacts
+        path: raid-azure-blob-storage/release/
+
+    - name: View release artifacts
+      run: |
+        cd raid-azure-blob-storage/release/
+        ls
 
   terraform:
+    if: github.repository == 'octo-org/octo-repo-prod'
     name: 'Terraform'
     env: 
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
