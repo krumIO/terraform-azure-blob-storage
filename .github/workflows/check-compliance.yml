@@ -1,4 +1,4 @@
-name: Release Privateer and Run Help
+name: Build, Release, and Check Compliance
 
 on:
   push:
@@ -161,9 +161,8 @@ jobs:
           path: privateer/privateer
       - name: RUN ls
         run: |
-          ls
-          cd privateer && ls && cd ..
-          cd raid-azure-blob-storage && ls && cd ..
+          cd privateer && ls -al && cd .. && ./privateer help
+          cd raid-azure-blob-storage && ls -al && cd ..
 
       - name: RUN sally command
         run: |
