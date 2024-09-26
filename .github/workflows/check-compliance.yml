@@ -43,9 +43,8 @@ jobs:
         ./privateer help
       
     - name: 'Tar files'
-      run: |
-        cd privateer
-        tar -cvf test_harness.tar privateer
+      run: tar -cvf test_harness.tar privateer
+      working-directory: privateer
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
@@ -84,9 +83,8 @@ jobs:
         ls
 
     - name: 'Tar files'
-      run: |
-        cd raid-azure-blob-storage
-        tar -cvf azure_blob.tar ABS
+      run: tar -cvf azure_blob.tar ABS
+      working-directory: raid-azure-blob-storage
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
