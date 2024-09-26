@@ -156,6 +156,9 @@ jobs:
     needs: [build-privateer, build-azure-blob-storage]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3    
+        
       - uses: actions/download-artifact@v3
         with:
           name: release-artifacts
@@ -167,10 +170,10 @@ jobs:
       - name: RUN ls
         run: |
           ls -al 
-          tar -xvf test_harness.tar
-          tar -xvf azure_blob.tar
+          tar xvf test_harness.tar
+          tar xvf azure_blob.tar
           ls -al
-      # - name: RUN sally command
-      #   run: |
-      #     ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
+      - name: RUN sally command
+        run: |
+          ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
                     
