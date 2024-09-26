@@ -39,4 +39,4 @@ No inputs.
 | resource_group_name | Name of the created resource group |
 | storage_account_name | Name of the created storage account |
 | primary_blob_endpoint | Primary blob endpoint |
-| container_names | Names of the created containers |
+| container_name | Names of the created container |

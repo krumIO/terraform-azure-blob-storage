@@ -1,26 +1,29 @@
-resource "azurerm_resource_group" "this" {
+# Create a Resource Group if it doesn’t exist
+resource "azurerm_resource_group" "tfexample" {
   name     = var.resource_group_name
   location = var.location
   tags     = var.tags
 }
 
-resource "azurerm_storage_account" "this" {
+# Create a Storage account
+resource "azurerm_storage_account" "terraform_state" {
   name                     = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.this.name
-  location                 = azurerm_resource_group.this.location
-  account_tier             = var.account_tier
-  account_replication_type = var.account_replication_type
+  resource_group_name      = azurerm_resource_group.tfexample.name
+  location                 = azurerm_resource_group.tfexample.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 
   blob_properties {
     versioning_enabled = var.enable_versioning
   }
 
   tags = var.tags
+
 }
 
-resource "azurerm_storage_container" "this" {
-  count                 = length(var.container_names)
-  name                  = var.container_names[count.index]
-  storage_account_name  = azurerm_storage_account.this.name
-  container_access_type = var.container_access_type
+# Create a Storage container
+resource "azurerm_storage_container" "terraform_state" {
+  name                  = var.container_name
+  storage_account_name  = azurerm_storage_account.terraform_state.name
+  container_access_type = "private"
 }

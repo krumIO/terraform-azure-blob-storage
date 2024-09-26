@@ -13,7 +13,8 @@ output "primary_blob_endpoint" {
   value       = module.azure_blob_storage.primary_blob_endpoint
 }
 
-output "container_names" {
+output "container_name" {
   description = "Names of the created containers"
-  value       = module.azure_blob_storage.container_names
+  value       = module.azure_blob_storage.container_name
 }
+

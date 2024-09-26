@@ -8,10 +8,8 @@ module "azure_blob_storage" {
   resource_group_name      = "cfi-resources"
   location                 = "eastus"
   storage_account_name     = "cfistorage${random_string.suffix.result}"
-  container_names          = ["container1", "container2"]
+  container_name          = "container1"
   enable_versioning        = true
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
   
   tags = {
     Environment = "Development"
