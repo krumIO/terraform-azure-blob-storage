@@ -53,7 +53,8 @@ jobs:
     - name: Checkout GCS Object Storage repository
       uses: actions/checkout@v3
       with:
-        repository: eddie-knight/raid-azure-blob-storage
+        # repository: eddie-knight/raid-azure-blob-storage
+        repository: krumio/raid-azure-blob-storage
         path: raid-azure-blob-storage
 
     - name: Set up Go
