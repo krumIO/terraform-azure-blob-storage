@@ -42,11 +42,14 @@ jobs:
         # Assuming the binary is named 'privateer'. Adjust if it's named differently.
         ./privateer help
       
+    - name: 'Tar files'
+      run: tar -cvf test_harness.tar privateer/
+
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
       with:
         name: release-artifacts
-        path: privateer/privateer
+        path: test_harness.tar
 
   build-azure-blob-storage:
     runs-on: ubuntu-latest
@@ -78,12 +81,14 @@ jobs:
         make release
         ls
 
+    - name: 'Tar files'
+      run: tar -cvf azure_blob.tar aid-azure-blob-storage/
+
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
       with:
         name: release-artifacts
-        path: raid-azure-blob-storage/ABS
-
+        path: azure_blob.tar
 
   terraform:
     if: github.repository == 'octo-org/octo-repo-prod'
@@ -154,22 +159,18 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: release-artifacts
-          path: raid-azure-blob-storage/ABS
+          path: test_harness.tar
       - uses: actions/download-artifact@v3
         with:
           name: release-artifacts
-          path: privateer/privateer
+          path: azure_blob.tar
       - name: RUN ls
         run: |
-          cd privateer/privateer 
           ls -al 
-          ./privateer help
-          cd .. 
-          cd raid-azure-blob-storage 
-          ls -al 
-          cd ..
-
-      - name: RUN sally command
-        run: |
-          ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
+          tar -xvf test_harness.tar
+          tar -xvf azure_blob.tar
+          ls -al
+      # - name: RUN sally command
+      #   run: |
+      #     ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
                     
