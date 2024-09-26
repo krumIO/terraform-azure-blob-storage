@@ -161,8 +161,13 @@ jobs:
           path: privateer/privateer
       - name: RUN ls
         run: |
-          cd privateer/privateer && ls -al && cd .. && ./privateer help
-          cd raid-azure-blob-storage && ls -al && cd ..
+          cd privateer/privateer 
+          ls -al 
+          ./privateer help
+          cd .. 
+          cd raid-azure-blob-storage 
+          ls -al 
+          cd ..
 
       - name: RUN sally command
         run: |
