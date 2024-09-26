@@ -180,5 +180,5 @@ jobs:
       - name: RUN sally command
         run: |
           cd artifacts
-          ./privateer sally ABS -c ../config.yml
+          ./privateer sally ABS -c ../config.yml -b ./
                     
