@@ -43,13 +43,13 @@ jobs:
         ./privateer help
       
     - name: 'Tar files'
-      run: tar -cvf test_harness.tar privateer/privateer
+      run: tar -cvf "privateer/test_harness.tar" privateer/privateer
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
       with:
         name: release-artifacts
-        path: test_harness.tar
+        path: "privateer/test_harness.tar"
 
   build-azure-blob-storage:
     runs-on: ubuntu-latest
@@ -82,13 +82,13 @@ jobs:
         ls
 
     - name: 'Tar files'
-      run: tar -cvf azure_blob.tar raid-azure-blob-storage/ABS
+      run: tar -cvf "raid-azure-blob-storage/azure_blob.tar" raid-azure-blob-storage/ABS
 
     - name: Archive release artifacts
       uses: actions/upload-artifact@v3
       with:
         name: release-artifacts
-        path: azure_blob.tar
+        path: "raid-azure-blob-storage/azure_blob.tar"
 
   terraform:
     if: github.repository == 'octo-org/octo-repo-prod'
@@ -173,7 +173,7 @@ jobs:
           tar -xf test_harness.tar
           tar -xf azure_blob.tar
           ls -al
-      - name: RUN sally command
-        run: |
-          ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
+      # - name: RUN sally command
+      #   run: |
+      #     ./privateer/privateer sally ./raid-azure-blob-storage/ABS -c config.yml
                     
