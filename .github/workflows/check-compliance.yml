@@ -8,47 +8,47 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Privateer repository
-      uses: actions/checkout@v3
-      with:
-        repository: privateerproj/privateer
-        path: privateer
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout Privateer repository
+  #     uses: actions/checkout@v3
+  #     with:
+  #       repository: privateerproj/privateer
+  #       path: privateer
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.22
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v3
+  #     with:
+  #       go-version: 1.22
 
-    - name: Install dependencies
-      run: |
-        cd privateer
-        go mod download
+  #   - name: Install dependencies
+  #     run: |
+  #       cd privateer
+  #       go mod download
 
-    - name: Run make release
-      run: |
-        cd privateer
-        make release
+  #   - name: Run make release
+  #     run: |
+  #       cd privateer
+  #       make release
 
-    - name: Run privateer help command
-      run: |
-        cd privateer/
-        # Assuming the binary is named 'privateer'. Adjust if it's named differently.
-        ./privateer help
+  #   - name: Run privateer help command
+  #     run: |
+  #       cd privateer/
+  #       # Assuming the binary is named 'privateer'. Adjust if it's named differently.
+  #       ./privateer help
       
-    - name: Archive release artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: release-artifacts
-        path: privateer/release/
+  #   - name: Archive release artifacts
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: release-artifacts
+  #       path: privateer/release/
 
-    - name: Archive help output
-      uses: actions/upload-artifact@v3
-      with:
-        name: help-output
-        path: privateer/release/help-output.txt
+  #   - name: Archive help output
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: help-output
+  #       path: privateer/release/help-output.txt
 
   terraform:
     name: 'Terraform'
@@ -73,6 +73,13 @@ jobs:
     # Install the latest version of Terraform CLI 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+
+    - name: cd into examples/basic directory
+      run: |
+        cd examples/basic
+        # run ls command
+        ls
+
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
