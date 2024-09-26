@@ -48,10 +48,10 @@ jobs:
         name: release-artifacts
         path: privateer/privateer
 
-  build-gcs-object-storage:
+  build-azure-blob-storage:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout GCS Object Storage repository
+    - name: Checkout Azure Blob Storage repository
       uses: actions/checkout@v3
       with:
         # repository: eddie-knight/raid-azure-blob-storage
@@ -84,9 +84,6 @@ jobs:
         name: release-artifacts
         path: raid-azure-blob-storage/ABS
 
-    - name: View release artifacts
-      run: |
-        ls
 
   terraform:
     if: github.repository == 'octo-org/octo-repo-prod'
@@ -149,3 +146,19 @@ jobs:
     - name: Terraform Destroy
       run: terraform destroy -auto-approve -input=false
       working-directory: examples/basic
+
+  check-compliance:
+    needs: [build-privateer, build-azure-blob-storage]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: release-artifacts
+          path: raid-azure-blob-storage/ABS
+      - uses: actions/download-artifact@v3
+        with:
+          name: release-artifacts
+          path: privateer/privateer
+      - name: RUN ls
+        run: |
+          ls
