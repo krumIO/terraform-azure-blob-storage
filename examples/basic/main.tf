@@ -3,7 +3,8 @@ provider "azurerm" {
 }
 
 module "azure_blob_storage" {
-  source = "../../"  # This assumes the example is in a subdirectory of the module
+  # source = "../../"  # This assumes the example is in a subdirectory of the module
+  source = "github.com/krumio/terraform-azure-blob-storage"
 
   resource_group_name      = "cfi-resources"
   location                 = "eastus"
