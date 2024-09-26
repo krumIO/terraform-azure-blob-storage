@@ -105,6 +105,11 @@ jobs:
       working-directory: examples/basic
 
      # On push to "master", build or change infrastructure according to Terraform configuration files
-    # - name: Terraform Apply
-    #   if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
-    #   run: terraform apply -auto-approve -input=false
+    - name: Terraform Apply
+      # if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
+      working-directory: examples/basic
+
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve -input=false
+      working-directory: examples/basic
