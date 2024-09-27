@@ -14,9 +14,15 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-    - name: Download and run Privateer install script
+    - name: Download Privateer install script
       run: |
-        curl -sSL https://raw.githubusercontent.com/privateerproj/privateer/03ced90caae9f3c9203eb7f82f2c46ccf2ff15fc/install.sh | bash
+        curl -sSL https://raw.githubusercontent.com/privateerproj/privateer/03ced90caae9f3c9203eb7f82f2c46ccf2ff15fc/install.sh -o install_privateer.sh
+
+    - name: Set execute permissions on install script
+      run: chmod +x install_privateer.sh
+
+    - name: Run Privateer install script
+      run: bash ./install_privateer.sh
 
     - name: Verify Privateer installation
       run: |
