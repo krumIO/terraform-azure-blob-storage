@@ -28,11 +28,12 @@ jobs:
       run: |
         ls -al ~/.privateer/bin
         cat ~/.bashrc
-        privateer-linux version
+        source ~/.bashrc
+        privateer version
 
     - name: Run Privateer help
       run: |
-        privateer-linux help
+        privateer help
 
   build-privateer:
     if: github.repository == 'octo-org/octo-repo-prod'
