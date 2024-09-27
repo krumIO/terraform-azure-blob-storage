@@ -30,6 +30,7 @@ jobs:
         echo 'export PATH="/home/runner/.privateer/bin:$PATH"' >> ~/.bash_profile
         source ~/.bash_profile
         privateer version
+        privateer help
 
     - name: Run Privateer help
       run: |
