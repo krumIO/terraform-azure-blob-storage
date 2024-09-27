@@ -27,8 +27,8 @@ jobs:
     - name: Verify Privateer installation
       run: |
         ls -al ~/.privateer/bin
-        cat ~/.bashrc
-        source ~/.bashrc
+        echo "export PATH="/home/runner/.privateer/bin:$PATH"" >> ~/.bash_profile
+        source ~/.bash_profile
         privateer version
 
     - name: Run Privateer help
