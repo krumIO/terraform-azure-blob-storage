@@ -34,6 +34,7 @@ jobs:
 
     - name: Run Privateer help
       run: |
+        source ~/.bash_profile
         privateer help
 
   build-privateer:
