@@ -212,4 +212,37 @@ jobs:
           cd artifacts
           ls -al
           ./privateer sally ABS -c config.yml -b ./
+
+  terraform-destroy:
+    name: 'Terraform Destroy'
+    env: 
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: cd into examples/basic directory
+      run: |
+        cd examples/basic
+        # run ls command
+        ls
+
+    - name: Terraform Init
+      run: terraform init -reconfigure
+      working-directory: examples/basic
+
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve -input=false
+      working-directory: examples/basic          
                     
