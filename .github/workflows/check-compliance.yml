@@ -215,7 +215,7 @@ jobs:
 
   terraform-destroy:
     name: 'Terraform Destroy'
-    needs: [build-privateer, build-azure-blob-storage, terraform, check-compliance]
+    needs: [terraform, check-compliance]
     env: 
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
