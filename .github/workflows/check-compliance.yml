@@ -216,6 +216,7 @@ jobs:
   terraform-destroy:
     name: 'Terraform Destroy'
     needs: [terraform, check-compliance]
+    if: ${{ always() && !failure() && !cancelled() }} # when none of the needed jobs fail or are cancelled (skipped or successful jobs are ok).
     env: 
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
