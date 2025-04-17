@@ -179,9 +179,9 @@ jobs:
       run: terraform apply -auto-approve -input=false
       working-directory: examples/basic
 
-    - name: Terraform Destroy
-      run: terraform destroy -auto-approve -input=false
-      working-directory: examples/basic
+    # - name: Terraform Destroy
+    #   run: terraform destroy -auto-approve -input=false
+    #   working-directory: examples/basic
 
   check-compliance:
     if: github.repository == 'octo-org/octo-repo-prod'
