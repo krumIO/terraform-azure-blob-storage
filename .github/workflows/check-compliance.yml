@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   install:
+    if: github.repository == 'octo-org/octo-repo-prod'
     runs-on: ubuntu-latest
     steps:
     - name: Download Privateer install script
@@ -122,7 +123,6 @@ jobs:
         path: raid-azure-blob-storage/ABS.tar
 
   terraform:
-    if: github.repository == 'octo-org/octo-repo-prod'
     name: 'Terraform'
     env: 
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
